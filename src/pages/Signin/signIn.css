@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SignIn Page Styling */
+.signin-container {
+  @apply flex items-center justify-center h-screen text-black bg-black;
+}
+
+.signin-box {
+  @apply p-8 bg-gray-900 rounded-lg shadow-lg w-96;
+}
+
+.signin-title {
+  @apply mb-4 text-2xl font-bold text-center text-white;
+}
+
+.signin-input {
+  @apply w-full p-3 mb-4 text-white placeholder-gray-400 bg-gray-800 rounded-lg outline-none focus:ring-2 focus:ring-orange-500;
+}
+
+.signin-button {
+  @apply w-full p-3 font-semibold text-white transition bg-orange-500 rounded-lg hover:bg-orange-600;
+}
+/* Error Message Styling */
+.error-message {
+  @apply mt-4 text-center text-red-500;
+  @apply mx-auto; /* Center the message horizontally */
+}
