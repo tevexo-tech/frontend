@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Background ---------- */
+.signin-container {
+  @apply flex items-center justify-center h-screen;
+  background: radial-gradient(circle at 50% 20%, #0b132b 0%, #000000 100%);
+  overflow: hidden;
+}
+
+/* ---------- Glass Card ---------- */
+.signin-card {
+  @apply relative flex flex-col items-center justify-center w-full text-white rounded-3xl;
+  max-width: 650px;       /* wider card */
+  min-height: 640px;      /* taller card */
+  padding: 6rem 5rem;     /* internal spacing */
+  background: rgba(17, 25, 40, 0.95);
+  backdrop-filter: blur(40px) saturate(200%);
+  border: 2px solid rgba(0, 140, 255, 0.3);
+  box-shadow:
+    0 20px 60px rgba(0, 110, 255, 0.4),
+    0 10px 30px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation: fadeInUp 0.9s ease;
+  transform: translateY(-10px);
+  z-index: 10;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signin-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow:
+    0 25px 70px rgba(0, 110, 255, 0.5),
+    0 15px 40px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- Title & Subtitle ---------- */
+.signin-title {
+  @apply text-5xl font-semibold text-center mb-3;
+  letter-spacing: 0.5px;
+}
+
+.signin-subtitle {
+  @apply text-base text-gray-400 text-center mb-10;
+  max-width: 80%;
+}
+
+/* ---------- Inputs ---------- */
+.signin-input {
+  @apply w-full px-6 py-4 mb-6 rounded-full text-white placeholder-gray-400 outline-none transition duration-200;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 1rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.signin-input:focus {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 140, 255, 0.25);
+  box-shadow:
+    0 0 20px rgba(0, 180, 255, 0.6),
+    inset 0 0 8px rgba(0, 140, 255, 0.3);
+}
+
+/* ---------- Button ---------- */
+.signin-button {
+  @apply w-full mt-6 py-4 rounded-full font-semibold text-white text-lg tracking-wide transition;
+  background: linear-gradient(90deg, #0066ff 0%, #0099ff 100%);
+  box-shadow: 0 14px 45px rgba(0, 110, 255, 0.28);
+}
+
+.signin-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 55px rgba(0, 110, 255, 0.35);
+}
+
+.signin-button:disabled {
+  @apply opacity-60 cursor-not-allowed;
+}
+
+/* ---------- Error Message ---------- */
+.error-message {
+  @apply mb-4 px-4 py-2 rounded text-sm bg-red-600/20 text-red-300;
+}
+
+/* ---------- Footer ---------- */
+.signin-footer {
+  @apply mt-8 text-center text-gray-400 text-sm;
+}
+
+.signin-footer a {
+  @apply text-blue-400 hover:underline;
+}
+
+/* ---------- Animation ---------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .signin-card {
+    max-width: 92%;
+    min-height: 520px;
+    padding: 3rem 2rem;
+  }
+  .signin-title {
+    @apply text-3xl;
+  }
+  .signin-subtitle {
+    @apply text-sm mb-6;
+  }
+}
