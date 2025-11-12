@@ -2,68 +2,151 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ---------- Background ---------- */
-.todo-container {
-  @apply flex items-center justify-center min-h-screen p-6;
-  background: radial-gradient(circle at 50% 20%, #0b132b 0%, #000 100%);
+/* ---------- Full Background ---------- */
+.kanban-container {
+  @apply min-h-screen p-6 flex flex-col items-center;
+  background: radial-gradient(circle at 50% 20%, #0b132b 0%, #000000 100%);
+  overflow-x: auto;
 }
 
-/* ---------- Glass Card ---------- */
-.todo-card {
-  @apply w-full max-w-2xl p-8 rounded-3xl bg-black/50 backdrop-blur-md border border-white/10 shadow-lg flex flex-col;
+
+/* ---------- Add Task Card ---------- */
+.add-task-card {
+  @apply w-full max-w-3xl p-6 rounded-3xl text-white flex flex-col;
+  background: rgba(17, 25, 40, 0.85);
+  backdrop-filter: blur(25px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 40px rgba(0, 100, 255, 0.12),
+    0 12px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation: fadeInUp 1s ease;
+}
+.add-task-card h2 {
+  @apply text-3xl font-semibold text-center mb-4;
+}
+.input-field {
+  @apply w-full px-4 py-3 mb-4 rounded-full text-white placeholder-gray-400 outline-none transition duration-200;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+.input-field:focus {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(0, 150, 255, 0.3);
+  box-shadow:
+    0 0 12px rgba(0, 100, 255, 0.25),
+    inset 0 0 6px rgba(0, 100, 255, 0.15);
+}
+/* White Calendar Icon only, keep text color as defined */
+.input-field[type="date"]::-webkit-calendar-picker-indicator {
+  -webkit-appearance: none; /* remove default styling */
+  display: inline-block;
+  background: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V9h14v11z"/></svg>') no-repeat center;
+  background-size: 16px 16px;
+  cursor: pointer;
 }
 
-/* ---------- Title ---------- */
-.todo-card h2 {
-  @apply text-4xl text-white font-semibold text-center mb-6;
+/* Firefox (partial support) */
+.input-field[type="date"]::-moz-calendar-picker-indicator {
+  filter: brightness(0) invert(1); /* just invert icon */
+  cursor: pointer;
 }
 
-/* ---------- Input Group ---------- */
-.todo-card .input-group {
-  @apply flex gap-3 mb-6;
-}
-.todo-card input[type="text"],
-.todo-card input[type="date"] {
-  @apply px-6 py-4 rounded-full bg-white/5 text-white placeholder-gray-400 border border-white/10 shadow-inner outline-none transition duration-200 flex-1;
-}
-.todo-card input:focus {
-  @apply ring-1 ring-blue-400;
-}
 
-/* ---------- Buttons ---------- */
-.todo-card button {
-  @apply font-semibold px-6 py-4 rounded-full shadow-lg text-white transition transform duration-200;
+/* ---------- Add Button ---------- */
+.btn-add {
+  @apply w-full py-3 rounded-full font-semibold text-white text-lg tracking-wide transition mb-4;
+  background: linear-gradient(90deg, #005eff 0%, #008cff 100%);
+  box-shadow: 0 6px 20px rgba(0, 100, 255, 0.35);
 }
-.todo-card button:hover {
+.btn-add:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 110, 255, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 100, 255, 0.45);
 }
 
-/* ---------- List ---------- */
-.todo-card ul {
-  @apply space-y-3;
+/* ---------- Delete All Button ---------- */
+.btn-delete-all {
+  @apply w-full py-3 rounded-full font-semibold text-white text-lg tracking-wide transition;
+  background: linear-gradient(90deg, #ff4d4d 0%, #ff1a1a 100%);
+  box-shadow: 0 6px 20px rgba(255, 50, 50, 0.35);
 }
-.todo-card li {
-  @apply flex justify-between p-4 bg-white/5 rounded-xl text-white shadow;
+.btn-delete-all:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 50, 50, 0.45);
 }
 
 /* ---------- Error ---------- */
-.todo-card .error-message {
-  @apply mb-4 px-4 py-2 rounded text-sm bg-red-600/20 text-red-300;
+.error-message {
+  @apply text-center text-sm text-red-400 mb-2;
+}
+
+/* ---------- Kanban Board ---------- */
+.kanban-board {
+  @apply flex gap-6 w-full overflow-x-auto mt-6;
+}
+.kanban-column {
+  @apply min-w-[220px] flex-1 bg-black/40 p-4 rounded-2xl;
+  backdrop-filter: blur(15px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.kanban-column h3 {
+  @apply text-white font-semibold mb-4 text-lg;
+}
+
+/* ---------- Kanban Card ---------- */
+.kanban-card {
+  @apply p-4 rounded-2xl shadow-lg text-white transition cursor-pointer;
+  background: rgba(17, 25, 40, 0.85);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.kanban-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0, 100, 255, 0.25);
+}
+
+/* ---------- Card Dropdown & Delete ---------- */
+.kanban-card select {
+  @apply bg-black/30 text-white text-sm rounded p-1 flex-1;
+}
+.kanban-card button {
+  @apply bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white text-sm transition;
+}
+
+/* ---------- Scrollbar ---------- */
+.kanban-board::-webkit-scrollbar {
+  height: 8px;
+}
+.kanban-board::-webkit-scrollbar-thumb {
+  background: rgba(0, 110, 255, 0.5);
+  border-radius: 8px;
+}
+.kanban-board::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ---------- Animation ---------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  .todo-card {
-    padding: 4rem 2rem;
+  .kanban-board {
+    @apply flex-col;
   }
-  .todo-card h2 {
-    @apply text-3xl;
+  .add-task-card {
+    @apply p-4;
   }
-  .todo-card input {
-    @apply px-4 py-3 text-sm;
-  }
-  .todo-card button {
-    @apply py-3 text-sm;
+  .input-field, .btn-add {
+    @apply text-sm py-2 px-3;
   }
 }
